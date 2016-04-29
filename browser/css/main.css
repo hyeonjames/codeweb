@@ -1,0 +1,22 @@
+.background {
+    z-index:1000;
+    opacity:0.3;
+    background-color:black;
+    position:fixed;
+    left:0px;
+    top:0px;
+    width:100%;
+    height:100%;
+    display:none;
+}
+.waiting {
+    z-index:1001;
+    left:50%;
+    height:50%;
+    width:500px;
+    height:100px;
+    position:fixed;
+    margin-left:-250px;
+    margin-top:-50px;
+    display:none;
+}

@@ -51,14 +51,29 @@ module.exports = function (grunt){
                     '<%=setting.dst.lib%>' : [setting.dst.lib]    
                 }
             }
+        },
+        watch : {
+            lib : {
+                files : [setting.src.lib],
+                tasks : ['concat:lib','uglify:lib']
+            },
+            js : {
+                files : [setting.src.js],
+                tasks : ['browserify:js']
+            },
+            css : {
+                files : [setting.src.css],
+                tasks : ['concat:css','cssmin:css']
+            }
         }
     }
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.initConfig(config);
     grunt.config('setting', setting);
 
-    grunt.registerTask('default',['browserify','concat','cssmin','uglify'])
+    grunt.registerTask('default',['browserify','concat','cssmin','uglify','watch'])
 }
