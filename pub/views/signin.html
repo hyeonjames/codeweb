@@ -1,23 +1,23 @@
 <div class="container">
     <div class="card-panel">
         <h5 class="center-align">Sign in</h5>
-        <form action="">
+        <form name="frmSign" novalidate>
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">account_box</i>
-                    <input type="email" id="txtEmail" class="validate">
+                    <input type="email" required ng-model="val.email" name="email" id="txtEmail" class="validate">
                     <label for="txtEmail">Email</label>
                 </div>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">fingerprint</i>
-                    <input type="password" id="txtPassword" class="validate">
+                    <input type="password" required ng-model="val.pw" name="password" id="txtPassword" class="validate">
                     <label for="txtPassword">Password</label>
                 </div>
             </div>
             <div class="right-align">
                 
-                <button type="button" class="waves-effect waves-light btn">Sign up</button>
-                <button type="button" class="waves-effect waves-light btn">Sign in</button>
+                <button type="button" ng-disabled="frmSign.$invalid" class="waves-effect waves-light btn" ng-click="signup();">Sign up</button>
+                <button type="button" ng-disabled="frmSign.$invalid" class="waves-effect waves-light btn" ng-click="signin();">Sign in</button>
             </div>
         </form>
     </div>

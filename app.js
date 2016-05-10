@@ -8,7 +8,11 @@ const app = express();
 mong.connect('mongodb://localhost/codeweb');
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
-
+app.use(session({
+    secret : 'codeweb',
+    resave : false,
+    saveUninitialized : true
+}))
 app.use(express.static('pub'));
 const routes = {
     '/accounts' : './routes/account.js'

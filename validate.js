@@ -18,6 +18,8 @@ const emailRegex = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a
 
 const castError = mong.SchemaType.CastError;
 
+
+
 register('Email',class Email extends mong.SchemaType{
     constructor(key,options) {
         super(key,options,'Email');

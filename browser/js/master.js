@@ -40,5 +40,18 @@ app.factory('$api',['$http','$q', ($http,$q)=>{
 
 
 app.controller('masterCtrl',['$scope','$api',($s,$api)=>{
-    
+    var menuList = [
+        { text : '' }
+    ];
+    $s.menuList = menuList;
+    $s.val = {
+        email : '',
+        pw : ''
+    }
+    $s.signin = function (){
+        
+    }
+    $s.signup = function (){
+        
+    }
 }]);
