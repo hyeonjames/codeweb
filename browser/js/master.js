@@ -6,6 +6,15 @@ import sanitize from 'angular-sanitize';
 
 let app = angular.module('myApp',['ui.router','ngSanitize']);
 
+app.config(['$stateProvider','$urlRouterProvider',
+($state,$router)=>{
+    $state
+    .state('sign',{
+        url : '/sign',
+        templateUrl : 'views/signin.html'
+    })
+    .state('')
+}])
 
 app.factory('$api',['$http','$q', ($http,$q)=>{
     function request(method,url, data ) {
@@ -38,6 +47,22 @@ app.factory('$api',['$http','$q', ($http,$q)=>{
     return api;
 }]);
 
+let userInfo = {};
+app.factory('$core',['$api',($api)=>{
+    
+    return {
+        update : function (){
+            $api.get('/api/accounts')
+            .then(function (info){
+                userInfo = info;
+                
+            });
+        },
+        info : function (){
+            return userInfo;
+        }
+    }
+}]);
 
 app.controller('masterCtrl',['$scope','$api',($s,$api)=>{
     var menuList = [
@@ -52,6 +77,14 @@ app.controller('masterCtrl',['$scope','$api',($s,$api)=>{
         
     }
     $s.signup = function (){
-        
+        $api('/accounts/join',{
+            email : $s.val.email,
+            pw : $s.val.pw
+        }).then(function (result){
+            if(result > 0){
+                location.href = '#/welcome';
+            }
+        });
     }
+    
 }]);

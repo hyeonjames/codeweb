@@ -15,7 +15,7 @@ app.use(session({
 }))
 app.use(express.static('pub'));
 const routes = {
-    '/accounts' : './routes/account.js'
+    '/api/accounts' : './routes/account.js'
 }
 
 for(let route in routes){
