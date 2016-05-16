@@ -2,18 +2,21 @@ const {Account} = require('./routes/account.js');
 const {Promise} = require( 'bluebird');
 class Session
 {
-    constructor (req,accountNo,created) {
+    constructor (req, row) {
         req.session.sessionInstance = this;
-        this.accountNo = accountNo;
+        for(var idx in row){
+            this[idx] = row[idx];
+        }
+        req.session.save();
     }
     static getInstance(req){
         return req.session.sessionInstance || null;
     }
     update(){
-        return new Promise(function (resolve,reject){
+        return new Promise((resolve,reject)=>{
             Account.findOne({
                 acc_no : this.accountNo
-            },function (err,row){
+            },(err,row)=>{
                 if(err){
                     reject(err);
                 }
@@ -22,6 +25,7 @@ class Session
                 }
                 else {
                     this.email = row.email;
+                    this.name = row.name;
                     this.level = row.level;
                     resolve(this);
                 }

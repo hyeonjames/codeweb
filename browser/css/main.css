@@ -20,3 +20,11 @@
     margin-top:-50px;
     display:none;
 }
+
+.infobar span {
+    font-size:12px;
+}
+
+.cursor {
+    cursor:pointer;
+}

@@ -1,0 +1,12 @@
+<ul class="collection">
+    <li class="collection-item avatar" ng-repeat="row in list">
+        <img ng-src="{{row.photoSrc}}" alt="" ng-if="row.photoSrc" class="circle"></li>
+        <i class="material-icons circle" ng-if="!row.photoSrc && row.iconType" ng-bind="row.iconType"></i>
+        <span class="title" ng-bind="row.title"></span>
+        
+        <a href="javascript:void(0);" class="secondary-content">
+            <i class="material-icons">grade</i>
+        </a>
+    </li>
+</ul>
+    

@@ -5,9 +5,15 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const mong = require('mongoose');
 const app = express();
-mong.connect('mongodb://localhost/codeweb');
+app.set('view engine','ejs');
+
+let {Account} = require('./routes/account.js');
+mong.connect('mongodb://localhost/codeweb',function (err){
+    
+});
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
+
 app.use(session({
     secret : 'codeweb',
     resave : false,
@@ -22,7 +28,7 @@ for(let route in routes){
     let url = routes[route];
     let exports = require(url);
     let Router = express.Router();
-    exports(Router);
+    exports(Router,app);
     app.use(route,Router);
 }
 

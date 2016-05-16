@@ -25,6 +25,7 @@ register('Email',class Email extends mong.SchemaType{
         super(key,options,'Email');
     }
     cast (val) {
+        console.log('email');
         let str = String(val);
         if(!emailRegex.test(str)) {
             throw new castError('Email',`${str} is not valid email address`);
@@ -33,15 +34,3 @@ register('Email',class Email extends mong.SchemaType{
     }
 });
 
-register('Password', class Password extends mong.SchemaType {
-    constructor(key,options){
-        super(key,options,'Password');
-    }
-    cast ( val){
-        let str = String(val);
-        if(str.length < 8 || str.length > 16) {
-            throw castError('Password','Password must be longer than 8 and less than 16');
-        }
-        return encPwd(str);
-    }
-})

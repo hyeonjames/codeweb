@@ -3,26 +3,97 @@
 <head>
     <meta charset="utf8">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no, target-densitydpi=medium-dpi"
+    />
     <script src="release/js/lib.js"></script>
     <script src="release/js/com.js"></script>
     <link rel="stylesheet" href="release/css/com.css">
 </head>
 
-<body ng-app="myApp" ng-controller="masterCtrl">
+<body ng-app="myApp" ng-controller="masterCtrl" ng-init="init()">
 
     <nav class="teal lighten-2">
-        <div class="nav-wrapper container">
+        <div class="nav-wrapper container" ng-hide="val.searchMode">
             <a href="#" class="brand-logo">Code404</a>
-            <a href="#" class="right"><i class="material-icons">account_circle</i></a>
+            <a href="#" class="right">
+                <i ng-if="!user.phtoSrc" class="material-icons">account_circle</i>
+                <img ng-src="{{user.phtoSrc}}" ng-if="user.phtoSrc"></a>
+            </a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="sass.html">Sass</a></li>
                 <li><a href="badges.html">Components</a></li>
                 <li><a href="collapsible.html">JavaScript</a></li>
             </ul>
-            <a href="#" data-activates="slide-menu" class="button-collapse hide-on-large-only"><i class="material-icons small">view_headline</i></a>
+            <ul class="right hide-on-large-only">
+                <li>
+                    <a href="javascript:void();" ng-click="val.searchMode = true;">
+                        <i class="material-icons">search</i>
+                        
+                    </a>
+                </li>
+            </ul>
+            <a href="#" data-activates="slide-menu" class="button-collapse hide-on-large-only">
+                <i class="material-icons small">view_headline</i>
+            </a>
+        </div>
+        <div class="nav-wrapper container" ng-show="val.searchMode">
+            <form>
+                <div class="input-field col s12">
+                    <input type="search" id="searchTop" ng-model="val.search">
+                    <label for="searchTop">
+                        
+                        <i class="material-icons">search</i>
+                    </label>
+                    <i class="material-icons cursor" ng-click="val.searchMode = false;">close</i>
+                </div>
+            </form>
         </div>
     </nav>
-    <div ng-include="'views/signin.html'"></div>
+    <div class="container hide-on-med-and-down">
+        <div class="card-panel blue-grey darken-1">
+            <div class="white-text" style="height:40px;" ng-if="user.load">
+                <div class="left">
+                    안녕하세요! <span ng-bind="user.name"></span>님<br/>
+                    <div class="infobar">
+                        <span ng-if="user.level>0" ng-bind="'현재 레벨 ' + user.level" />
+                    </div>
+                </div>
+
+                <a class="btn-floating btn-small red right" href="#/modify" ng-if="user.level > 0">
+                    <i class="small material-icons">mode_edit</i>
+                </a>
+                <button type="button" class="btn right" ng-if="user.level == 0" ng-click="signin();">로그인</button>
+            </div>
+            <div class="white-text" ng-if="!user.load">
+
+                <span class="preloader-wrapper small active">
+                    <div class="spinner-layer spinner-green-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="white-text">
+                <form>
+                    <div class="input-field col s12">
+                        <input type="search" id="searchCenter" ng-model="val.search">
+                        <label for="searchCenter">
+                            <i class="material-icons prefix">search</i>
+                        </label>
+                        <i class="material-icons" style="top:6px;">close</i>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div ui-view="content"></div>
     <ul id="slide-menu" class="side-nav">
         <li><a href="#">테스트</a></li>
     </ul>
