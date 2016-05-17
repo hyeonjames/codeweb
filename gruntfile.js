@@ -1,7 +1,7 @@
 module.exports = function (grunt){
     var setting = {
         src : {
-            js : 'browser/js/**/*.js',
+            js : 'browser/js/app.js',
             css : 'browser/css/**/*.css',
             lib : 'browser/lib/**/*.js'
         },
@@ -15,15 +15,16 @@ module.exports = function (grunt){
         pkg: grunt.file.readJSON('package.json'),
         browserify : {
             js : {
-                files : {
-                    '<%=setting.dst.js%>' : setting.src.js
-                },
+                src : [setting.src.js],
+                dest : setting.dst.js,
                 options : {
+                    
                     transform: [
                         ["babelify",{presets : ['es2015']}]
                     ],
                     browserifyOptions : {
-                        debug:true
+                        debug:true,
+                        fullPaths : false
                     }
                 }
             }

@@ -32,4 +32,6 @@ app.config(['$stateProvider','$urlRouterProvider',
     });
 }]);
 
-module.exports = app;
+require('./controllers.js')(app);
+require('./directives.js')(app);
+require('./factories.js')(app);

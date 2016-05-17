@@ -12,6 +12,7 @@
     "angular": "^1.5.5",
     "angular-sanitize": "^1.5.5",
     "angular-ui-router": "^0.2.18",
+    "bluebird": "^3.3.5",
     "express": "^4.13.4",
     "jquery": "^2.2.3",
     "materialize-css": "^0.97.6"
