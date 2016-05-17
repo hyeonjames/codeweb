@@ -17,7 +17,7 @@ module.exports = (app,express)=>{
         resave : false,
         saveUninitialized : true
     }))
-    app.use(express.static('pub'));
+    app.use(express.static('./pub'));
     const routes = {
         '/api/accounts' : './routes/account.js'
     }
