@@ -24,7 +24,7 @@ module.exports = (app) => {
 
         $.extend($s, {
             signin() {
-                location.href = '/signin.html';
+                location.href = '#/sign';
             },
             val: {
                 searchKey: '',
