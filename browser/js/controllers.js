@@ -2,10 +2,20 @@
 import {Promise} from 'bluebird';
 
 module.exports = (app) => {
+    const $config = {
+        info : true
+    }
+    var config = {};
+    app.run(['$rootScope',($root)=>{
+        $root.$on('$stateChangeSuccess',()=>{
+            $.extend(config,$config);
+        });
+    }]);
     app.controller('masterCtrl', ['$scope', '$api', '$session', ($s, $api, $ses) => {
         var menuList = [
             { text: '' }
         ];
+        $s.config = config;
         $s.menuList = menuList;
         $s.init = function () {
             $ses.update();
@@ -14,7 +24,7 @@ module.exports = (app) => {
 
         $.extend($s, {
             signin() {
-                location.href = '#/sign';
+                location.href = '/signin.html';
             },
             val: {
                 searchKey: '',
@@ -24,10 +34,22 @@ module.exports = (app) => {
     }]);
     app.controller('signCtrl', ['$scope', '$api', '$session', ($s, $api, $ses) => {
         let user = $ses.info();
-        if (user.level > 0) {
-            alert('이미 로그인한 상태입니다.');
-            location.href = '#/home';
+        if(user.load){
+            if (user.level > 0) {
+                alert('이미 로그인한 상태입니다.');
+                    location.href = '#/home';
+            }
+        } else {
+            $ses.update().then(()=>{
+                
+                if (user.level > 0) {
+                    alert('이미 로그인한 상태입니다.');
+                    location.href = '#/home';
+                }
+            });  
+        
         }
+        config.info = false;
         $s.val = {
             email: '',
             pw: ''
@@ -43,7 +65,7 @@ module.exports = (app) => {
                 });
         }
         $s.signup = function () {
-            $api('/api/accounts/signup', {
+            $api('/account/signup', {
                 email: $s.val.email,
                 pw: $s.val.pw
             }).then(function (result) {
@@ -64,6 +86,17 @@ module.exports = (app) => {
 
     app.controller('welcomeCtrl', ['$scope', '$api', '$session', ($s, $api, $ses) => {
         $s.user = $ses.info();
+    }]);
+    
+    app.controller('authCtrl',['$scope','$api','$session','$stateParams',($s,$api,$ses,$param)=>{
+        $s.state = 0;
+        config.info = false;
+        $s.init = function (){
+            $api.get(`/account/auth/${$param.accNo}/${$param.registCode}`)
+            .then((result)=>{
+                $s.state = result.verified ? 1 : 2;
+            });
+        }
     }]);
 
 }

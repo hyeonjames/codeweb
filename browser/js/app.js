@@ -29,7 +29,13 @@ app.config(['$stateProvider','$urlRouterProvider',
         url : '/welcome',
         templateUrl : 'views/welcome.html',
         controller : 'welcomeCtrl'
+    })
+    .state('auth',{
+        url : '/auth/:accNo/:registCode',
+        templateUrl : 'views/auth.html',
+        controller : 'authCtrl'
     });
+    $router.otherwise('/home');
 }]);
 
 require('./controllers.js')(app);
