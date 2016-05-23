@@ -1,1 +1,23 @@
-<div ng-init="init()"></div>
+<div ng-init="init()" class="card-panel">
+    <div ng-if="state == 0">
+        <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+        <span>인증 요청중입니다. 잠시만 기다려주십시오.</span>
+    </div>
+    <div ng-if="state == 1">
+        <span>인증에 성공하였습니다. </span><br/>
+        <a href="#/home">로그인</a> 하시면 정상적으로 사용하실 수 있습니다.
+    </div>
+    <div ng-if="state == 2">
+        <span>인증에 실패하였습니다. 이미 인증을 하셨거나 존재하지 않는 인증정보입니다.</span>
+    </div>
+</div>
